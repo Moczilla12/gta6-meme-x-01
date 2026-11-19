@@ -1,63 +1,58 @@
-// gta6-meme-x-01 — v2 "CALLING IN SICK ON GTA 6 DAY."
+// gta6-meme-x-01 — v3 "13 YEARS. STILL 99%."
 //
-// This program is not the entry. The entry is the X post: the meme
-// (meme.png) posted from a public account with make.fun and the play code
-// in its text. All this program does is deliver the post's address to the
-// house — it reads POST.json from the repository root and writes it into
-// /output, where the gate picks it up.
+// The entry is not this program. The entry is the X post: the meme
+// (meme.png) posted from a public account, with make.fun and the play code
+// in its text. This program has exactly one job — carry the post's address
+// from the repository to the house. It reads POST.json at the repo root,
+// checks that it really is an X status address, and writes it to /output
+// where the gate reads it.
 //
-// Run it locally like this:
+// Local check:
 //   mkdir -p out && MAKEFUN_BOT_DIR=. MAKEFUN_OUTPUT_DIR=out node main.ts
 
-import { copyFileSync, mkdirSync, readFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-function fail(message: string): never {
-  console.error(message);
+const botDir = process.env.MAKEFUN_BOT_DIR ?? '/bot';
+const outputDir = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
+
+const postFile = join(botDir, 'POST.json');
+const raw = readFileSync(postFile, 'utf8');
+
+let post: { url?: unknown };
+try {
+  post = JSON.parse(raw) as { url?: unknown };
+} catch {
+  console.error('POST.json is not valid JSON.');
   process.exit(1);
 }
 
-const botDir = process.env.MAKEFUN_BOT_DIR ?? '/bot';
-const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
-
-const postPath = join(botDir, 'POST.json');
-let parsed: unknown;
-try {
-  parsed = JSON.parse(readFileSync(postPath, 'utf8'));
-} catch {
-  fail('POST.json is not valid JSON.');
+const url = post.url;
+if (typeof url !== 'string' || url.length === 0) {
+  console.error('POST.json has no url string.');
+  process.exit(1);
 }
 
-const url = (parsed as { url?: unknown } | null)?.url;
-if (typeof url !== 'string') {
-  fail('POST.json has no url string.');
+// It has to be an X status address: https://x.com/<handle>/status/<digits>
+// (twitter.com counts too). Anything else is a mistake in the file.
+// The v3 meme stacks three jokes: a man who waited 13 years (his beard
+// reaches his lap), a GTA VI download stuck at 99%, and the make.fun ghost
+// beside him on the couch, already paid. The post is the entry; this file
+// only hands the house its address.
+const match = url.match(/^https:\/\/(?:www\.|mobile\.)?(?:x|twitter)\.com\/([^/]+)\/status\/(\d+)$/);
+if (match === null) {
+  console.error('POST.json url is not an X post address.');
+  process.exit(1);
+}
+const [, handle, statusId] = match;
+if (handle.length === 0) {
+  console.error('POST.json url has no account handle.');
+  process.exit(1);
+}
+if (statusId === '0'.repeat(statusId.length)) {
+  console.warn('Warning: POST.json still holds the all-zero placeholder; swap in the real post address before submitting.');
 }
 
-// The post must be a real X status address. The placeholder the repo ships
-// (an all-zero status id) is not one, so replace it with the address of the
-// post that carries the meme before submitting.
-let address: URL;
-try {
-  address = new URL(url);
-} catch {
-  fail('POST.json url is not a valid URL.');
-}
-const hostOk =
-  address.protocol === 'https:' &&
-  /^(www\.|mobile\.)?(x|twitter)\.com$/.test(address.hostname);
-const pathOk = /^\/[^/]+\/status\/\d+$/.test(address.pathname);
-if (!hostOk || !pathOk) {
-  fail('POST.json url is not an X post address; replace the placeholder with the real post.');
-}
-
-// The shape check above accepts the all-zero placeholder id, so the program
-// still runs locally with it — but the house refuses a placeholder address,
-// so this is only a warning, not an error.
-const statusId = address.pathname.split('/').pop() ?? '';
-if (/^0+$/.test(statusId)) {
-  console.warn('Warning: POST.json still holds the placeholder address; replace it with the real post before submitting.');
-}
-
-mkdirSync(outDir, { recursive: true });
-copyFileSync(postPath, join(outDir, 'POST.json'));
-console.log(`Wrote ${join(outDir, 'POST.json')} -> ${url}`);
+mkdirSync(outputDir, { recursive: true });
+writeFileSync(join(outputDir, 'POST.json'), raw, 'utf8');
+console.log(`Wrote ${join(outputDir, 'POST.json')} -> https://x.com/${handle}/status/${statusId}`);
