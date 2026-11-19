@@ -1,16 +1,16 @@
-# 13 YEARS. FINALLY. — a GTA 6 meme for make.fun
+# CALLING IN SICK ON GTA 6 DAY. — a GTA 6 meme for make.fun
 
 [![make.fun · gta6-meme-x-01](https://make.fun/badge/gta6-meme-x-01.svg)](https://make.fun/bounty/gta6-meme-x-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-meme-x-01)
 [![rank](https://make.fun/badge/gta6-meme-x-01/Moczilla12/gta6-meme-x-01/rank.svg)](https://make.fun/bounty/gta6-meme-x-01/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=gta6-meme-x-01)
 [![reward](https://make.fun/badge/gta6-meme-x-01/Moczilla12/gta6-meme-x-01/reward.svg)](https://make.fun/bounty/gta6-meme-x-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-meme-x-01)
 
-An entry for the make.fun bounty [Post a GTA 6 meme on X](https://make.fun/bounty/gta6-meme-x-01): the joke, the picture, and the post's address.
+An entry for the make.fun bounty [Post a GTA 6 meme on X](https://make.fun/bounty/gta6-meme-x-01): the joke, the picture, and the post's address. This is v2 — the v1 meme ("13 YEARS. FINALLY.") scored 6-6 in dev grading, so this one tells a sharper, more specific joke.
 
 ## The joke
 
-Thirteen years since GTA V. A guy in Vice City, slumped on the curb beside his sports car at golden hour, phone in hand, still waiting — and the make.fun ghost sitting on the ground right next to him, waiting too. The caption says it all: **13 YEARS. FINALLY.**
+GTA 6 launches 26 May 2026. A guy on the couch, controller in hand, phone to his ear, calling in sick — grinning ear to ear, clearly the least sick person alive, with a tropical game world on the TV behind him. Sitting on the cushion right next to him, as a character in the scene, is the make.fun ghost: white ghost, sparkle eyes, magenta star coin, leaning on the pillow like it called in sick too. The caption says it all: **CALLING IN SICK ON GTA 6 DAY.**
 
-The ghost is the make.fun mascot, worked into the scene as a companion, not a corner sticker: white ghost, sparkle eyes, magenta star coin, sitting on the curb with him.
+The ghost is the make.fun mascot, worked into the scene as a companion on the couch, not a corner sticker — the ghost shape was cut out of the make.fun mark (no magenta disc) so it sits in the room like a character.
 
 ## The post
 
